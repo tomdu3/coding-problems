@@ -1,0 +1,26 @@
+class Solution(object):
+    def minRemoveToMakeValid(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        open_par = []
+        to_remove = []
+
+        for index, ch in enumerate(s):
+            if ch == ')':
+                if len(open_par) == 0:
+                    to_remove.append(index)
+                else:
+                    open_par.pop()
+            elif ch == '(':
+                open_par.append(index)
+        
+        to_remove.extend(open_par)
+        to_remove.sort(reverse=True)
+
+        s = list(s)
+        for i in to_remove:
+            s.pop(i)
+        
+        return ''.join(s)
